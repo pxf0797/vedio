@@ -126,8 +126,15 @@ def main():
 
     # 如果所有 map 都为空，说明拿不到可下载的格式
     if not single_map and not video_map:
-        print("未获取到视频流格式，可能是加密或特殊M3U8，或需要登录权限。")
-        print("建议直接使用 yt-dlp 命令行下载。")
+        print("未获取到标准格式，尝试使用yt-dlp默认下载方式...")
+        ydl_opts = {
+            'outtmpl': os.path.join('./download', f'{title_clean}.%(ext)s'),
+            'format': 'best',
+            'merge_output_format': 'mp4'
+        }
+        success = multi_round_download(page_url, ydl_opts, max_rounds=3, max_retries=3)
+        if success:
+            print("\n下载完成！请查看下载文件夹：./download")
         return
 
     # 3. 列出所有可用分辨率(从高到低)
