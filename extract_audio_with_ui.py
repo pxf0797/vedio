@@ -14,7 +14,9 @@ def extract_audio_from_video(video_path):
             '1': {'name': 'MP3', 'codec': 'libmp3lame'},
             '2': {'name': 'WAV', 'codec': 'pcm_s16le'},
             '3': {'name': 'OGG', 'codec': 'libvorbis'},
-            '4': {'name': 'M4A', 'codec': 'aac'}
+            '4': {'name': 'M4A', 'codec': 'aac'},
+            '5': {'name': 'FLAC', 'codec': 'flac'},
+            '6': {'name': 'AAC', 'codec': 'aac'}
         }
         
         # 显示格式选择提示
@@ -42,8 +44,14 @@ def extract_audio_from_video(video_path):
                 elif choice == "4":
                     format_choice = "m4a"
                     break
+                elif choice == "5":
+                    format_choice = "flac"
+                    break
+                elif choice == "6":
+                    format_choice = "aac"
+                    break
                 else:
-                    print("无效选择，请输入1、2、3或4")
+                    print("无效选择，请输入1、2、3、4、5或6")
             except KeyboardInterrupt:
                 print("\n操作已取消")
                 return
@@ -95,7 +103,9 @@ def extract_audio_from_video(video_path):
             'mp3': 'libmp3lame',
             'wav': 'pcm_s16le',
             'ogg': 'libvorbis',
-            'm4a': 'aac'
+            'm4a': 'aac',
+            'flac': 'flac',
+            'aac': 'aac'
         }
         
         # 保存音频文件
