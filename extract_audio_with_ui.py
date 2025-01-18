@@ -61,10 +61,10 @@ def extract_audio_from_video(video_path):
                 
         # 确认选择
         print(f"\n您选择的格式: {format_choice.upper()}")
-        confirm = input("是否继续? (y/n): ").strip().lower()
-        if confirm != 'y':
-            print("操作已取消")
-            return
+        #confirm = input("是否继续? (y/n): ").strip().lower()
+        #if confirm != 'y':
+        #    print("操作已取消")
+        #    return
 
         # 验证文件是否存在
         if not os.path.exists(video_path):
