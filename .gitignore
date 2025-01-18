@@ -1,3 +1,4 @@
 # 忽略的文件和文件夹
 vedio/
 download/
+venv/
