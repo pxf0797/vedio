@@ -53,7 +53,20 @@ pip install --upgrade pip
 
 # Install requirements
 pip install -r requirements.txt
+
+# Install ffmpeg (required for audio processing)
+# macOS:
+brew install ffmpeg
+
+# Linux:
+sudo apt install ffmpeg
+
+# Windows:
+# Download from https://ffmpeg.org/download.html and add to PATH
 ```
+
+Note: ffmpeg is required for both moviepy and pydub to work properly.
+注意：ffmpeg是moviepy和pydub都需要的依赖项。
 
 ## Usage 使用方法
 
@@ -161,11 +174,17 @@ pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org -r req
    - 这通常意味着虚拟环境未激活
    - 确保在运行脚本前激活虚拟环境
 
-3. **Error: Could not find ffmpeg**
-   - MoviePy requires ffmpeg for audio processing
+3. **Error: No module named 'pydub'**
+   - This means pydub is not installed properly
+   - Make sure to install all requirements: `pip install -r requirements.txt`
+   - 这表示pydub没有正确安装
+   - 确保安装所有依赖：`pip install -r requirements.txt`
+
+4. **Error: Could not find ffmpeg**
+   - MoviePy and pydub both require ffmpeg for audio processing
    - It should be installed automatically with imageio-ffmpeg
    - If issues persist, install ffmpeg manually:
-   - MoviePy需要ffmpeg进行音频处理
+   - MoviePy和pydub都需要ffmpeg进行音频处理
    - 它应该随imageio-ffmpeg自动安装
    - 如果问题持续存在，手动安装ffmpeg：
 
