@@ -61,6 +61,13 @@ def show_audio_info(audio, input_file=None):
     print(f"- 比特率: {audio.frame_rate * audio.channels * audio.sample_width * 8 / 1000:.1f} kbps")
     print(f"- 文件大小: {os.path.getsize(input_file)/1000000:.1f} MB" if input_file else "- 文件大小: 未知")
     print(f"- 音频质量: {'CD级' if audio.frame_rate >= 44100 and audio.sample_width >= 2 else '普通'}")
+    # 从文件扩展名获取编码格式
+    if input_file:
+        ext = os.path.splitext(input_file)[1][1:].lower()
+        print(f"- 编码格式: {ext.upper()}")
+        print(f"- 压缩比: {'有损' if ext in ('mp3', 'aac', 'm4a') else '无损'}")
+    print(f"- 峰值电平: {audio.max:.1f} dBFS")
+    print(f"- 平均电平: {audio.rms:.1f} dBFS")
 
 # 音频格式到ffmpeg格式的映射
 AUDIO_FORMAT_MAPPING = {
