@@ -51,10 +51,13 @@ def convert_video(input_file, output_file, speed=1.0):
 def show_audio_info(audio):
     """显示音频文件信息"""
     print("\n音频文件信息：")
-    print(f"- 时长: {len(audio)/1000:.2f} 秒")
+    print(f"- 时长: {len(audio)/1000:.2f} 秒（{len(audio)/60000:.1f}分钟）")
     print(f"- 采样率: {audio.frame_rate} Hz")
     print(f"- 声道数: {audio.channels}")
     print(f"- 位深: {audio.sample_width * 8} bit")
+    print(f"- 比特率: {audio.frame_rate * audio.channels * audio.sample_width * 8 / 1000:.1f} kbps")
+    print(f"- 文件大小: {os.path.getsize(audio.filename)/1000000:.1f} MB" if hasattr(audio, 'filename') else "- 文件大小: 未知")
+    print(f"- 音频质量: {'CD级' if audio.frame_rate >= 44100 and audio.sample_width >= 2 else '普通'}")
 
 # 音频格式到ffmpeg格式的映射
 AUDIO_FORMAT_MAPPING = {
