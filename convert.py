@@ -2,6 +2,7 @@ import os
 import sys
 import argparse
 from pydub import AudioSegment
+from tqdm import tqdm
 
 # Optional GUI imports
 GUI_AVAILABLE = False
@@ -27,16 +28,30 @@ def convert_video(input_file, output_file, speed=1.0):
 
 def convert_audio(input_file, output_file, speed=1.0):
     try:
-        audio = AudioSegment.from_file(input_file)
+        # 显示加载进度
+        print("\n加载音频文件中...")
+        with tqdm(total=100, desc="加载进度", unit="%") as pbar:
+            audio = AudioSegment.from_file(input_file)
+            pbar.update(100)
+        
         if speed != 1.0:
-            # 使用frame rate调整速度
-            new_frame_rate = int(audio.frame_rate * speed)
-            audio = audio._spawn(audio.raw_data, overrides={
-                'frame_rate': new_frame_rate
-            }).set_frame_rate(audio.frame_rate)
+            # 显示速度调整进度
+            print("\n调整音频速度中...")
+            with tqdm(total=100, desc="速度调整", unit="%") as pbar:
+                new_frame_rate = int(audio.frame_rate * speed)
+                audio = audio._spawn(audio.raw_data, overrides={
+                    'frame_rate': new_frame_rate
+                }).set_frame_rate(audio.frame_rate)
+                pbar.update(100)
+        
+        # 显示导出进度
+        print("\n导出音频文件中...")
         output_format = os.path.splitext(output_file)[1][1:]  # Get format from extension
-        audio.export(output_file, format=output_format)
-        return f"Success: Audio converted to {output_file} (speed: {speed}x)"
+        with tqdm(total=100, desc="导出进度", unit="%") as pbar:
+            audio.export(output_file, format=output_format)
+            pbar.update(100)
+        
+        return f"\nSuccess: Audio converted to {output_file} (speed: {speed}x)"
     except Exception as e:
         return f"Error converting audio: {str(e)}"
 
