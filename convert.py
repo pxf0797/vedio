@@ -18,7 +18,7 @@ def convert_video(input_file, output_file, speed=1.0):
         from moviepy.editor import VideoFileClip
         video = VideoFileClip(input_file)
         if speed != 1.0:
-            video = video.fx(video.fx.speedx, speed)
+            video = video.speedx(speed)
         video.write_videofile(output_file, codec='libx264')
         return f"Success: Video converted to {output_file} (speed: {speed}x)"
     except ImportError:
