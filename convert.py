@@ -16,10 +16,16 @@ except ImportError:
 def show_video_info(video):
     """显示视频文件信息"""
     print("\n视频文件信息：")
-    print(f"- 时长: {video.duration:.2f} 秒")
-    print(f"- 分辨率: {video.size[0]}x{video.size[1]}")
+    print(f"- 时长: {video.duration:.2f} 秒（{video.duration/60:.0f}分钟）")
+    print(f"- 分辨率: {video.size[0]}x{video.size[1]}（{'Full HD' if video.size[0] == 1920 and video.size[1] == 1080 else '其他'}）")
     print(f"- 帧率: {video.fps} fps")
+    print(f"- 视频编码格式: {video.codec if hasattr(video, 'codec') else '未知'}")
+    print(f"- 比特率: {video.bitrate if hasattr(video, 'bitrate') else '未知'} kbps")
+    print(f"- 文件大小: {os.path.getsize(video.filename)/1000000:.1f} MB" if hasattr(video, 'filename') else "- 文件大小: 未知")
     print(f"- 音频: {'有' if video.audio else '无'}")
+    if video.audio:
+        print(f"- 音频编码格式: {video.audio.codec if hasattr(video.audio, 'codec') else '未知'}")
+        print(f"- 音频比特率: {video.audio.bitrate if hasattr(video.audio, 'bitrate') else '未知'} kbps")
 
 def convert_video(input_file, output_file, speed=1.0):
     try:
