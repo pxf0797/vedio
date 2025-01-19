@@ -56,6 +56,16 @@ def show_audio_info(audio):
     print(f"- 声道数: {audio.channels}")
     print(f"- 位深: {audio.sample_width * 8} bit")
 
+# 音频格式到ffmpeg格式的映射
+AUDIO_FORMAT_MAPPING = {
+    'm4a': 'ipod',  # ffmpeg uses 'ipod' for m4a files
+    'mp3': 'mp3',
+    'wav': 'wav',
+    'ogg': 'ogg',
+    'flac': 'flac',
+    'aac': 'adts'  # aac in adts container
+}
+
 def convert_audio(input_file, output_file, speed=1.0):
     try:
         # 显示加载进度
@@ -78,8 +88,9 @@ def convert_audio(input_file, output_file, speed=1.0):
         # 显示导出进度
         print("\n导出音频文件中...")
         output_format = os.path.splitext(output_file)[1][1:]  # Get format from extension
+        ffmpeg_format = AUDIO_FORMAT_MAPPING.get(output_format.lower(), output_format)
         with tqdm(total=100, desc="导出进度", unit="%") as pbar:
-            audio.export(output_file, format=output_format)
+            audio.export(output_file, format=ffmpeg_format)
             pbar.update(100)
         
         # 显示输出文件信息
