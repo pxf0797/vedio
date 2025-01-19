@@ -1,6 +1,7 @@
 import os
 import sys
 import argparse
+from datetime import datetime
 from pydub import AudioSegment
 from tqdm import tqdm
 
@@ -16,8 +17,12 @@ except ImportError:
 def show_video_info(video):
     """显示视频文件信息"""
     print("\n视频文件信息：")
+    print(f"- 文件路径: {video.filename}" if hasattr(video, 'filename') else "- 文件路径: 未知")
+    print(f"- 创建时间: {datetime.fromtimestamp(os.path.getctime(video.filename)).strftime('%Y-%m-%d %H:%M:%S')}" if hasattr(video, 'filename') else "- 创建时间: 未知")
+    print(f"- 修改时间: {datetime.fromtimestamp(os.path.getmtime(video.filename)).strftime('%Y-%m-%d %H:%M:%S')}" if hasattr(video, 'filename') else "- 修改时间: 未知")
     print(f"- 时长: {video.duration:.2f} 秒（{video.duration/60:.0f}分钟）")
     print(f"- 分辨率: {video.size[0]}x{video.size[1]}（{'Full HD' if video.size[0] == 1920 and video.size[1] == 1080 else '其他'}）")
+    print(f"- 宽高比: {video.size[0]/video.size[1]:.2f}:1")
     print(f"- 帧率: {video.fps} fps")
     print(f"- 视频编码格式: {video.codec if hasattr(video, 'codec') else '未知'}")
     print(f"- 比特率: {video.bitrate if hasattr(video, 'bitrate') else '未知'} kbps")
@@ -26,6 +31,8 @@ def show_video_info(video):
     if video.audio:
         print(f"- 音频编码格式: {video.audio.codec if hasattr(video.audio, 'codec') else '未知'}")
         print(f"- 音频比特率: {video.audio.bitrate if hasattr(video.audio, 'bitrate') else '未知'} kbps")
+        print(f"- 音频采样率: {video.audio.fps if hasattr(video.audio, 'fps') else '未知'} Hz")
+        print(f"- 音频通道布局: {video.audio.nchannels if hasattr(video.audio, 'nchannels') else '未知'} 声道")
 
 def convert_video(input_file, output_file, speed=1.0):
     try:
