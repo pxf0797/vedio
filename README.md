@@ -1,8 +1,17 @@
-# Video Audio Extractor
-# 视频音频提取器
+# Video Audio Extractor & Converter
+# 视频音频提取和转换器
 
-A Python script for extracting audio from video files with a graphical user interface.
-一个带图形界面的视频音频提取Python脚本。
+A collection of Python scripts for:
+- Extracting audio from video files
+- Converting between audio formats (mp3, wav, flac)
+- Converting between video formats (mp4, avi, mov)
+All with graphical user interface support.
+
+一组Python脚本，用于：
+- 从视频文件中提取音频
+- 在音频格式之间转换（mp3、wav、flac）
+- 在视频格式之间转换（mp4、avi、mov）
+所有功能都支持图形用户界面。
 
 ## System Requirements 系统要求
 
@@ -79,16 +88,73 @@ Note: ffmpeg is required for both moviepy and pydub to work properly.
    venv\Scripts\activate
    ```
 
-2. Run the script:
-   运行脚本：
+2. Run either script:
+   运行任一脚本：
    ```bash
+   # For extracting audio from video:
+   # 从视频中提取音频：
    python extract_audio_with_ui.py
+
+   # For converting between audio/video formats:
+   # 用于音频/视频格式转换：
+   python convert.py
    ```
 
-3. Use the file dialog to select a video file
-   使用文件对话框选择视频文件
+3. For extract_audio_with_ui.py:
+   使用extract_audio_with_ui.py：
+   - Use the file dialog to select a video file
+   - 使用文件对话框选择视频文件
 
-4. Choose the desired audio format from the following options:
+4. For convert.py:
+   使用convert.py：
+
+   The script can be run in two modes:
+   脚本可以在两种模式下运行：
+
+   a) Command-line mode (default):
+      命令行模式（默认）：
+      ```bash
+      python convert.py
+      ```
+      - Choose the type of conversion (1 for audio, 2 for video)
+      - 选择转换类型（1表示音频，2表示视频）
+      - Select the input file using the file dialog
+      - 使用文件对话框选择输入文件
+      - Choose the output format by entering the corresponding number:
+      - 通过输入对应的数字选择输出格式：
+        * For audio 音频格式:
+          1. mp3
+          2. wav
+          3. flac
+        * For video 视频格式:
+          1. mp4
+          2. avi
+          3. mov
+
+   b) GUI mode:
+      图形界面模式：
+      ```bash
+      python convert.py --gui
+      ```
+      - Select input file through file dialog
+      - 通过文件对话框选择输入文件
+      - Choose output format from popup menu
+      - 从弹出菜单中选择输出格式
+      - View conversion result in popup message
+      - 在弹出消息中查看转换结果
+
+   Supported formats for convert.py:
+   convert.py支持的格式：
+   - Input audio: .mp3, .wav, .flac
+   - 输入音频：.mp3、.wav、.flac
+   - Input video: .mp4, .mkv, .avi, .mov
+   - 输入视频：.mp4、.mkv、.avi、.mov
+   - Output audio: .mp3, .wav, .flac
+   - 输出音频：.mp3、.wav、.flac
+   - Output video: .mp4, .avi, .mov
+   - 输出视频：.mp4、.avi、.mov
+
+5. For audio extraction, choose from the following options:
    从以下选项中选择所需的音频格式：
    - 1: MP3
    - 2: WAV
@@ -97,8 +163,8 @@ Note: ffmpeg is required for both moviepy and pydub to work properly.
    - 5: FLAC
    - 6: AAC
 
-5. Wait for the extraction to complete
-   等待提取完成
+6. Wait for the extraction/conversion to complete
+   等待提取/转换完成
 
 ## Supported Formats 支持的格式
 
@@ -199,6 +265,14 @@ pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org -r req
      # Download from https://ffmpeg.org/download.html
      ```
 
+5. **Error: Invalid output format**
+   - Make sure to enter a valid number for the format selection
+   - For audio: enter 1 (mp3), 2 (wav), or 3 (flac)
+   - For video: enter 1 (mp4), 2 (avi), or 3 (mov)
+   - 确保输入有效的格式选择数字
+   - 音频格式：输入1（mp3）、2（wav）或3（flac）
+   - 视频格式：输入1（mp4）、2（avi）或3（mov）
+
 ## Notes 注意事项
 
 - Always use a virtual environment to avoid conflicts with system Python packages
@@ -214,6 +288,7 @@ pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org -r req
 
 ```
 .
-├── extract_audio_with_ui.py    # Main script 主脚本
+├── extract_audio_with_ui.py    # Audio extraction script 音频提取脚本
+├── convert.py                  # Format conversion script 格式转换脚本
 ├── requirements.txt            # Dependencies 依赖项
 └── README.md                  # Documentation 文档

@@ -92,10 +92,20 @@ def command_line_mode():
     input_file = select_input_file(file_type)
     if not input_file:
         return
-    output_format = input(f"请输入输出格式 ({', '.join(formats)}): ")
+
+    print("请选择输出格式：")
+    for i, fmt in enumerate(formats, 1):
+        print(f"{i}. {fmt}")
+    format_choice = input("请输入数字选择格式: ")
     
-    if output_format not in formats:
-        print(f"无效的输出格式: {output_format}")
+    try:
+        choice_idx = int(format_choice) - 1
+        if choice_idx < 0 or choice_idx >= len(formats):
+            print("无效的选择")
+            return
+        output_format = formats[choice_idx]
+    except ValueError:
+        print("请输入有效的数字")
         return
     
     output_file = os.path.splitext(input_file)[0] + '.' + output_format
@@ -135,16 +145,21 @@ def gui_mode():
     if not format_choice:
         return
     
+    if not format_choice or format_choice < 1 or format_choice > len(formats):
+        messagebox.showerror("错误", "无效的选择")
+        return
+    
     output_format = formats[format_choice - 1]
+    output_file = os.path.splitext(file_path)[0] + '.' + output_format
     
-    output_file = os.path.splitext(file_path)[0] + '.' + format_choice
-    
-    if file_type == 'audio':
-        result = convert_audio(file_path, output_file)
-    else:
-        result = convert_video(file_path, output_file)
-    
-    messagebox.showinfo("结果", result)
+    try:
+        if file_type == 'audio':
+            result = convert_audio(file_path, output_file)
+        else:
+            result = convert_video(file_path, output_file)
+        messagebox.showinfo("结果", result)
+    except Exception as e:
+        messagebox.showerror("错误", f"转换失败: {str(e)}")
 
 def main():
     parser = argparse.ArgumentParser(description="Convert media files between formats")
