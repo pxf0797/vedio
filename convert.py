@@ -12,23 +12,27 @@ try:
 except ImportError:
     pass
 
-def convert_video(input_file, output_file):
+def convert_video(input_file, output_file, speed=1.0):
     try:
         from moviepy.editor import VideoFileClip
         video = VideoFileClip(input_file)
+        if speed != 1.0:
+            video = video.fx(video.fx.speedx, speed)
         video.write_videofile(output_file, codec='libx264')
-        return f"Success: Video converted to {output_file}"
+        return f"Success: Video converted to {output_file} (speed: {speed}x)"
     except ImportError:
         return "Error: moviepy not installed. Please install it with: pip install moviepy"
     except Exception as e:
         return f"Error converting video: {str(e)}"
 
-def convert_audio(input_file, output_file):
+def convert_audio(input_file, output_file, speed=1.0):
     try:
         audio = AudioSegment.from_file(input_file)
+        if speed != 1.0:
+            audio = audio.speedup(playback_speed=speed)
         output_format = os.path.splitext(output_file)[1][1:]  # Get format from extension
         audio.export(output_file, format=output_format)
-        return f"Success: Audio converted to {output_file}"
+        return f"Success: Audio converted to {output_file} (speed: {speed}x)"
     except Exception as e:
         return f"Error converting audio: {str(e)}"
 
@@ -74,6 +78,18 @@ def command_line_mode():
         print("请安装Tkinter或使用图形界面模式")
         return
     
+    # 获取速度参数
+    speed = 1.0
+    speed_input = input("请输入播放速度 (例如 0.5 表示慢速，1.5 表示快速，默认为1.0): ")
+    try:
+        speed = float(speed_input) if speed_input else 1.0
+        if speed <= 0:
+            print("速度必须大于0")
+            return
+    except ValueError:
+        print("无效的速度值，使用默认速度1.0")
+        speed = 1.0
+    
     print("请选择要转换的文件类型：")
     print("1. 音频文件")
     print("   支持格式: MP3, WAV, OGG, M4A, FLAC, AAC")
@@ -110,13 +126,17 @@ def command_line_mode():
         print("请输入有效的数字")
         return
     
-    output_file = os.path.splitext(input_file)[0] + '.' + output_format
+    # 在文件名中添加速度标记
+    base_name = os.path.splitext(input_file)[0]
+    if speed != 1.0:
+        base_name += f"_{speed}x"
+    output_file = base_name + '.' + output_format
     file_type = get_file_type(input_file)
     
     if file_type == 'audio':
-        result = convert_audio(input_file, output_file)
+        result = convert_audio(input_file, output_file, speed)
     elif file_type == 'video':
-        result = convert_video(input_file, output_file)
+        result = convert_video(input_file, output_file, speed)
     else:
         print("不支持的文件类型")
         return
@@ -130,6 +150,15 @@ def gui_mode():
         
     root = tk.Tk()
     root.withdraw()
+    
+    # 获取速度参数
+    speed = simpledialog.askfloat("播放速度", 
+                                "请输入播放速度 (例如 0.5 表示慢速，1.5 表示快速)",
+                                minvalue=0.1,
+                                initialvalue=1.0)
+    if speed is None or speed <= 0:
+        messagebox.showerror("错误", "无效的速度值")
+        return
     
     file_path = filedialog.askopenfilename(title="选择文件")
     if not file_path:
@@ -152,13 +181,17 @@ def gui_mode():
         return
     
     output_format = formats[format_choice - 1]
-    output_file = os.path.splitext(file_path)[0] + '.' + output_format
+    # 在文件名中添加速度标记
+    base_name = os.path.splitext(file_path)[0]
+    if speed != 1.0:
+        base_name += f"_{speed}x"
+    output_file = base_name + '.' + output_format
     
     try:
         if file_type == 'audio':
-            result = convert_audio(file_path, output_file)
+            result = convert_audio(file_path, output_file, speed)
         else:
-            result = convert_video(file_path, output_file)
+            result = convert_video(file_path, output_file, speed)
         messagebox.showinfo("结果", result)
     except Exception as e:
         messagebox.showerror("错误", f"转换失败: {str(e)}")
