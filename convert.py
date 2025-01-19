@@ -13,18 +13,42 @@ try:
 except ImportError:
     pass
 
+def show_video_info(video):
+    """显示视频文件信息"""
+    print("\n视频文件信息：")
+    print(f"- 时长: {video.duration:.2f} 秒")
+    print(f"- 分辨率: {video.size[0]}x{video.size[1]}")
+    print(f"- 帧率: {video.fps} fps")
+    print(f"- 音频: {'有' if video.audio else '无'}")
+
 def convert_video(input_file, output_file, speed=1.0):
     try:
         from moviepy.editor import VideoFileClip
         video = VideoFileClip(input_file)
+        show_video_info(video)
+        
         if speed != 1.0:
             video = video.speedx(speed)
         video.write_videofile(output_file, codec='libx264')
+        
+        # 显示输出文件信息
+        output_video = VideoFileClip(output_file)
+        show_video_info(output_video)
+        output_video.close()
+        
         return f"Success: Video converted to {output_file} (speed: {speed}x)"
     except ImportError:
         return "Error: moviepy not installed. Please install it with: pip install moviepy"
     except Exception as e:
         return f"Error converting video: {str(e)}"
+
+def show_audio_info(audio):
+    """显示音频文件信息"""
+    print("\n音频文件信息：")
+    print(f"- 时长: {len(audio)/1000:.2f} 秒")
+    print(f"- 采样率: {audio.frame_rate} Hz")
+    print(f"- 声道数: {audio.channels}")
+    print(f"- 位深: {audio.sample_width * 8} bit")
 
 def convert_audio(input_file, output_file, speed=1.0):
     try:
@@ -33,6 +57,7 @@ def convert_audio(input_file, output_file, speed=1.0):
         with tqdm(total=100, desc="加载进度", unit="%") as pbar:
             audio = AudioSegment.from_file(input_file)
             pbar.update(100)
+            show_audio_info(audio)
         
         if speed != 1.0:
             # 显示速度调整进度
@@ -50,6 +75,10 @@ def convert_audio(input_file, output_file, speed=1.0):
         with tqdm(total=100, desc="导出进度", unit="%") as pbar:
             audio.export(output_file, format=output_format)
             pbar.update(100)
+        
+        # 显示输出文件信息
+        output_audio = AudioSegment.from_file(output_file)
+        show_audio_info(output_audio)
         
         return f"\nSuccess: Audio converted to {output_file} (speed: {speed}x)"
     except Exception as e:
