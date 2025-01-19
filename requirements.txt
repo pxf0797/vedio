@@ -1,0 +1,14 @@
+# Core dependencies
+moviepy==1.0.3
+tk==0.1.0
+
+# MoviePy dependencies
+decorator==4.4.2
+imageio==2.36.1
+imageio_ffmpeg==0.6.0
+numpy>=1.25.0
+proglog<=1.0.0
+python-dotenv>=0.10
+pillow>=9.2.0
+tqdm>=4.11.2
+requests>=2.8.1
