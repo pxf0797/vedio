@@ -29,7 +29,11 @@ def convert_audio(input_file, output_file, speed=1.0):
     try:
         audio = AudioSegment.from_file(input_file)
         if speed != 1.0:
-            audio = audio.speedup(playback_speed=speed)
+            # 使用frame rate调整速度
+            new_frame_rate = int(audio.frame_rate * speed)
+            audio = audio._spawn(audio.raw_data, overrides={
+                'frame_rate': new_frame_rate
+            }).set_frame_rate(audio.frame_rate)
         output_format = os.path.splitext(output_file)[1][1:]  # Get format from extension
         audio.export(output_file, format=output_format)
         return f"Success: Audio converted to {output_file} (speed: {speed}x)"
