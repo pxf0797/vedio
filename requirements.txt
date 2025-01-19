@@ -2,6 +2,7 @@
 moviepy==1.0.3
 tk==0.1.0
 pydub==0.25.1
+yt-dlp==2024.4.9
 
 # Audio processing dependencies
 decorator==4.4.2
