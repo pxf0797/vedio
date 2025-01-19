@@ -2,16 +2,18 @@
 # 视频音频提取和转换器
 
 A collection of Python scripts for:
+- Downloading videos from various platforms with resolution selection
 - Extracting audio from video files
 - Converting between audio formats (MP3, WAV, OGG, M4A, FLAC, AAC)
 - Converting between video formats (MP4, AVI, MOV, MKV, FLV, WMV, WebM, M4V)
-All with graphical user interface support.
+All with user-friendly interfaces.
 
 一组Python脚本，用于：
+- 从各种平台下载视频并支持清晰度选择
 - 从视频文件中提取音频
 - 在音频格式之间转换（MP3、WAV、OGG、M4A、FLAC、AAC）
 - 在视频格式之间转换（MP4、AVI、MOV、MKV、FLV、WMV、WebM、M4V）
-所有功能都支持图形用户界面。
+所有功能都提供友好的用户界面。
 
 ## System Requirements 系统要求
 
@@ -60,10 +62,181 @@ venv\Scripts\activate
 # Upgrade pip
 pip install --upgrade pip
 
-# Install requirements
+# Install requirements (includes yt-dlp, moviepy, pydub)
 pip install -r requirements.txt
 
-# Install ffmpeg (required for audio processing)
+# Install ffmpeg (required for video downloading and processing)
+# Video Audio Extractor & Converter
+# 视频音频提取和转换器
+
+A collection of Python scripts for:
+- Downloading videos with resolution selection
+- Extracting audio from video files
+- Converting between audio formats (MP3, WAV, OGG, M4A, FLAC, AAC)
+- Converting between video formats (MP4, AVI, MOV, MKV, FLV, WMV, WebM, M4V)
+All with user-friendly interfaces.
+
+一组Python脚本，用于：
+- 下载视频并支持清晰度选择
+- 从视频文件中提取音频
+- 在音频格式之间转换（MP3、WAV、OGG、M4A、FLAC、AAC）
+- 在视频格式之间转换（MP4、AVI、MOV、MKV、FLV、WMV、WebM、M4V）
+所有功能都提供友好的用户界面。
+
+## System Requirements 系统要求
+
+- Python 3.12 or higher (recommended) Python 3.12或更高版本（推荐）
+- macOS, Windows, or Linux operating system macOS、Windows或Linux操作系统
+
+## Installation 安装步骤
+
+### 1. Install Python 安装Python
+
+#### macOS:
+```bash
+# Using Homebrew
+brew install python@3.12
+brew install python-tk@3.12
+```
+
+#### Windows:
+- Download Python 3.12 from [python.org](https://www.python.org/downloads/)
+- During installation, make sure to check "Add Python to PATH"
+- Tkinter is included by default in Windows Python installations
+
+#### Linux (Ubuntu/Debian):
+```bash
+sudo apt update
+sudo apt install python3.12
+sudo apt install python3-tk
+```
+
+### 2. Create Virtual Environment 创建虚拟环境
+
+```bash
+# Create virtual environment
+python3.12 -m venv venv
+
+# Activate virtual environment
+# On macOS/Linux:
+source venv/bin/activate
+# On Windows:
+venv\Scripts\activate
+```
+
+
+3. For video.py:
+   使用video.py：
+   
+   Features 功能特点:
+   - Downloads videos from various platforms using yt-dlp
+   - 使用yt-dlp从各种平台下载视频
+   - Automatically detects available resolutions
+   - 自动检测可用的视频清晰度
+   - Shows resolution options with format details (single file/separate audio)
+   - 显示清晰度选项及格式详情（单文件/分离音频）
+   - Downloads to './download' folder with sanitized filenames
+   - 下载到'./download'文件夹，自动处理文件名
+   
+   Usage steps 使用步骤:
+   a) Enter video URL 输入视频链接
+   b) Choose resolution from available options 从可用选项中选择清晰度:
+      - Resolutions are sorted high to low 清晰度从高到低排序
+      - Shows if audio is included 显示是否包含音频
+      - Shows if separate audio download is needed 显示是否需要单独下载音频
+   c) Download process 下载过程:
+      - Automatic retries (3 rounds, 3 attempts each) 自动重试（3轮，每轮3次）
+      - Option to continue next round on failure 失败时可选择继续下一轮
+      - Option to try different resolution if all attempts fail 全部失败可选择其他清晰度
+   d) Output 输出:
+      - Files saved in './download' folder 文件保存在'./download'文件夹
+      - Filename includes title and resolution 文件名包含标题和清晰度
+      - Automatic audio merging if needed 需要时自动合并音频
+# Video Audio Extractor & Converter
+# 视频音频提取和转换器
+
+A collection of Python scripts for:
+- Downloading videos with resolution selection
+- Extracting audio from video files
+- Converting between audio formats (MP3, WAV, OGG, M4A, FLAC, AAC)
+- Converting between video formats (MP4, AVI, MOV, MKV, FLV, WMV, WebM, M4V)
+All with user-friendly interfaces.
+
+一组Python脚本，用于：
+- 下载视频并支持清晰度选择
+- 从视频文件中提取音频
+- 在音频格式之间转换（MP3、WAV、OGG、M4A、FLAC、AAC）
+- 在视频格式之间转换（MP4、AVI、MOV、MKV、FLV、WMV、WebM、M4V）
+所有功能都提供友好的用户界面。
+
+## System Requirements 系统要求
+
+- Python 3.12 or higher (recommended) Python 3.12或更高版本（推荐）
+- macOS, Windows, or Linux operating system macOS、Windows或Linux操作系统
+
+## Installation 安装步骤
+
+### 1. Install Python 安装Python
+
+#### macOS:
+```bash
+# Using Homebrew
+brew install python@3.12
+brew install python-tk@3.12
+```
+
+#### Windows:
+- Download Python 3.12 from [python.org](https://www.python.org/downloads/)
+- During installation, make sure to check "Add Python to PATH"
+- Tkinter is included by default in Windows Python installations
+
+#### Linux (Ubuntu/Debian):
+```bash
+sudo apt update
+sudo apt install python3.12
+sudo apt install python3-tk
+```
+
+### 2. Create Virtual Environment 创建虚拟环境
+
+```bash
+# Create virtual environment
+python3.12 -m venv venv
+
+# Activate virtual environment
+# On macOS/Linux:
+source venv/bin/activate
+# On Windows:
+venv\Scripts\activate
+```
+
+3. For video.py:
+   使用video.py：
+   
+   Features 功能特点:
+   - Downloads videos from various platforms using yt-dlp
+   - 使用yt-dlp从各种平台下载视频
+   - Automatically detects available resolutions
+   - 自动检测可用的视频清晰度
+   - Shows resolution options with format details (single file/separate audio)
+   - 显示清晰度选项及格式详情（单文件/分离音频）
+   - Downloads to './download' folder with sanitized filenames
+   - 下载到'./download'文件夹，自动处理文件名
+   
+   Usage steps 使用步骤:
+   a) Enter video URL 输入视频链接
+   b) Choose resolution from available options 从可用选项中选择清晰度:
+      - Resolutions are sorted high to low 清晰度从高到低排序
+      - Shows if audio is included 显示是否包含音频
+      - Shows if separate audio download is needed 显示是否需要单独下载音频
+   c) Download process 下载过程:
+      - Automatic retries (3 rounds, 3 attempts each) 自动重试（3轮，每轮3次）
+      - Option to continue next round on failure 失败时可选择继续下一轮
+      - Option to try different resolution if all attempts fail 全部失败可选择其他清晰度
+   d) Output 输出:
+      - Files saved in './download' folder 文件保存在'./download'文件夹
+      - Filename includes title and resolution 文件名包含标题和清晰度
+      - Automatic audio merging if needed 需要时自动合并音频
 # macOS:
 brew install ffmpeg
 
@@ -74,8 +247,8 @@ sudo apt install ffmpeg
 # Download from https://ffmpeg.org/download.html and add to PATH
 ```
 
-Note: ffmpeg is required for both moviepy and pydub to work properly.
-注意：ffmpeg是moviepy和pydub都需要的依赖项。
+Note: ffmpeg is required for video downloading, audio extraction, and format conversion.
+注意：ffmpeg是视频下载、音频提取和格式转换所必需的。
 
 ## Usage 使用方法
 
@@ -88,9 +261,13 @@ Note: ffmpeg is required for both moviepy and pydub to work properly.
    venv\Scripts\activate
    ```
 
-2. Run either script:
+2. Run any of the scripts:
    运行任一脚本：
    ```bash
+   # For downloading videos:
+   # 下载视频：
+   python video.py
+
    # For extracting audio from video:
    # 从视频中提取音频：
    python extract_audio_with_ui.py
@@ -100,12 +277,48 @@ Note: ffmpeg is required for both moviepy and pydub to work properly.
    python convert.py
    ```
 
-3. For extract_audio_with_ui.py:
+3. For video.py:
+   使用video.py：
+   
+   Features 功能特点:
+   - Downloads videos from various platforms using yt-dlp
+   - 使用yt-dlp从各种平台下载视频
+   - Automatically detects available resolutions
+   - 自动检测可用的视频清晰度
+   - Shows resolution options with format details (single file/separate audio)
+   - 显示清晰度选项及格式详情（单文件/分离音频）
+   - Downloads to './download' folder with sanitized filenames
+   - 下载到'./download'文件夹，自动处理文件名
+   
+   Usage steps 使用步骤:
+   a) Enter video URL 输入视频链接
+   b) Choose resolution from available options 从可用选项中选择清晰度:
+      - Resolutions are sorted high to low 清晰度从高到低排序
+      - Shows if audio is included 显示是否包含音频
+      - Shows if separate audio download is needed 显示是否需要单独下载音频
+   c) Download process 下载过程:
+      - Automatic retries (3 rounds, 3 attempts each) 自动重试（3轮，每轮3次）
+      - Option to continue next round on failure 失败时可选择继续下一轮
+      - Option to try different resolution if all attempts fail 全部失败可选择其他清晰度
+   d) Output 输出:
+      - Files saved in './download' folder 文件保存在'./download'文件夹
+      - Filename includes title and resolution 文件名包含标题和清晰度
+      - Automatic audio merging if needed 需要时自动合并音频
+
+4. For extract_audio_with_ui.py:
    使用extract_audio_with_ui.py：
    - Use the file dialog to select a video file
    - 使用文件对话框选择视频文件
+   - Choose from the following audio formats:
+   - 从以下音频格式中选择：
+     * 1: MP3
+     * 2: WAV
+     * 3: OGG
+     * 4: M4A
+     * 5: FLAC
+     * 6: AAC
 
-4. For convert.py:
+5. For convert.py:
    使用convert.py：
 
    The script can be run in two modes:
@@ -294,14 +507,22 @@ pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org -r req
    - 音频格式：输入1-6选择MP3、WAV、OGG、M4A、FLAC或AAC
    - 视频格式：输入1-8选择MP4、AVI、MOV、MKV、FLV、WMV、WebM或M4V
 
+5. **Error: Video download failed**
+   - Check if the URL is valid and accessible
+   - Try selecting a different resolution
+   - Use the automatic retry feature (3 rounds available)
+   - 检查URL是否有效且可访问
+   - 尝试选择其他清晰度
+   - 使用自动重试功能（可用3轮）
+
 ## Notes 注意事项
 
 - Always use a virtual environment to avoid conflicts with system Python packages
   始终使用虚拟环境以避免与系统Python包冲突
 - Keep the requirements.txt file in the same directory as the script
   将requirements.txt文件保存在与脚本相同的目录中
-- Make sure to have sufficient disk space for audio extraction
-  确保有足够的磁盘空间用于音频提取
+- Make sure to have sufficient disk space for video downloads and processing
+  确保有足够的磁盘空间用于视频下载和处理
 - Large video files may take longer to process
   大型视频文件可能需要更长的处理时间
 
@@ -309,6 +530,7 @@ pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org -r req
 
 ```
 .
+├── video.py                    # Video download script 视频下载脚本
 ├── extract_audio_with_ui.py    # Audio extraction script 音频提取脚本
 ├── convert.py                  # Format conversion script 格式转换脚本
 ├── requirements.txt            # Dependencies 依赖项
