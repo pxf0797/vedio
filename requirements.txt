@@ -3,6 +3,7 @@ moviepy==1.0.3
 tk==0.1.0
 pydub==0.25.1
 yt-dlp==2024.4.9
+ffmpeg-python==0.2.0
 
 # Audio processing dependencies
 decorator==4.4.2
@@ -13,4 +14,6 @@ proglog<=1.0.0
 python-dotenv>=0.10
 pillow>=9.2.0
 tqdm>=4.11.2
+
+# Utilities
 requests>=2.8.1
