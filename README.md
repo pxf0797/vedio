@@ -3,14 +3,14 @@
 
 A collection of Python scripts for:
 - Extracting audio from video files
-- Converting between audio formats (mp3, wav, flac)
-- Converting between video formats (mp4, avi, mov)
+- Converting between audio formats (MP3, WAV, OGG, M4A, FLAC, AAC)
+- Converting between video formats (MP4, AVI, MOV, MKV, FLV, WMV, WebM, M4V)
 All with graphical user interface support.
 
 一组Python脚本，用于：
 - 从视频文件中提取音频
-- 在音频格式之间转换（mp3、wav、flac）
-- 在视频格式之间转换（mp4、avi、mov）
+- 在音频格式之间转换（MP3、WAV、OGG、M4A、FLAC、AAC）
+- 在视频格式之间转换（MP4、AVI、MOV、MKV、FLV、WMV、WebM、M4V）
 所有功能都支持图形用户界面。
 
 ## System Requirements 系统要求
@@ -123,13 +123,21 @@ Note: ffmpeg is required for both moviepy and pydub to work properly.
       - Choose the output format by entering the corresponding number:
       - 通过输入对应的数字选择输出格式：
         * For audio 音频格式:
-          1. mp3
-          2. wav
-          3. flac
+          1. MP3
+          2. WAV
+          3. OGG
+          4. M4A
+          5. FLAC
+          6. AAC
         * For video 视频格式:
-          1. mp4
-          2. avi
-          3. mov
+          1. MP4
+          2. AVI
+          3. MOV
+          4. MKV
+          5. FLV
+          6. WMV
+          7. WebM
+          8. M4V
 
    b) GUI mode:
       图形界面模式：
@@ -145,14 +153,23 @@ Note: ffmpeg is required for both moviepy and pydub to work properly.
 
    Supported formats for convert.py:
    convert.py支持的格式：
-   - Input audio: .mp3, .wav, .flac
-   - 输入音频：.mp3、.wav、.flac
-   - Input video: .mp4, .mkv, .avi, .mov
-   - 输入视频：.mp4、.mkv、.avi、.mov
-   - Output audio: .mp3, .wav, .flac
-   - 输出音频：.mp3、.wav、.flac
-   - Output video: .mp4, .avi, .mov
-   - 输出视频：.mp4、.avi、.mov
+   - Input/Output audio formats 音频格式：
+     * MP3 (.mp3)
+     * WAV (.wav)
+     * OGG (.ogg)
+     * M4A (.m4a)
+     * FLAC (.flac)
+     * AAC (.aac)
+   
+   - Input/Output video formats 视频格式：
+     * MP4 (.mp4)
+     * AVI (.avi)
+     * MOV (.mov)
+     * MKV (.mkv)
+     * FLV (.flv)
+     * WMV (.wmv)
+     * WebM (.webm)
+     * M4V (.m4v)
 
 5. For audio extraction, choose from the following options:
    从以下选项中选择所需的音频格式：
@@ -168,19 +185,23 @@ Note: ffmpeg is required for both moviepy and pydub to work properly.
 
 ## Supported Formats 支持的格式
 
-### Input Video Formats 输入视频格式
-- MP4
-- AVI
-- MOV
-- MKV
+### Audio Formats 音频格式
+- MP3 (.mp3)
+- WAV (.wav)
+- OGG (.ogg)
+- M4A (.m4a)
+- FLAC (.flac)
+- AAC (.aac)
 
-### Output Audio Formats 输出音频格式
-- MP3 (default)
-- WAV
-- OGG
-- M4A
-- FLAC
-- AAC
+### Video Formats 视频格式
+- MP4 (.mp4)
+- AVI (.avi)
+- MOV (.mov)
+- MKV (.mkv)
+- FLV (.flv)
+- WMV (.wmv)
+- WebM (.webm)
+- M4V (.m4v)
 
 ## Troubleshooting 故障排除
 
@@ -267,11 +288,11 @@ pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org -r req
 
 5. **Error: Invalid output format**
    - Make sure to enter a valid number for the format selection
-   - For audio: enter 1 (mp3), 2 (wav), or 3 (flac)
-   - For video: enter 1 (mp4), 2 (avi), or 3 (mov)
+   - For audio: enter 1-6 for MP3, WAV, OGG, M4A, FLAC, or AAC
+   - For video: enter 1-8 for MP4, AVI, MOV, MKV, FLV, WMV, WebM, or M4V
    - 确保输入有效的格式选择数字
-   - 音频格式：输入1（mp3）、2（wav）或3（flac）
-   - 视频格式：输入1（mp4）、2（avi）或3（mov）
+   - 音频格式：输入1-6选择MP3、WAV、OGG、M4A、FLAC或AAC
+   - 视频格式：输入1-8选择MP4、AVI、MOV、MKV、FLV、WMV、WebM或M4V
 
 ## Notes 注意事项
 

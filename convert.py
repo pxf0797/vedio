@@ -33,17 +33,17 @@ def convert_audio(input_file, output_file):
         return f"Error converting audio: {str(e)}"
 
 def get_file_type(file_path):
-    if file_path.lower().endswith(('.mp3', '.wav', '.flac')):
+    if file_path.lower().endswith(('.mp3', '.wav', '.flac', '.ogg', '.m4a', '.aac')):
         return 'audio'
-    elif file_path.lower().endswith(('.mp4', '.mkv', '.avi', '.mov')):
+    elif file_path.lower().endswith(('.mp4', '.mkv', '.avi', '.mov', '.flv', '.wmv', '.webm', '.m4v')):
         return 'video'
     return None
 
 def get_output_format(file_type):
     if file_type == 'audio':
-        return ['mp3', 'wav', 'flac']
+        return ['mp3', 'wav', 'ogg', 'm4a', 'flac', 'aac']
     elif file_type == 'video':
-        return ['mp4', 'avi', 'mov']
+        return ['mp4', 'avi', 'mov', 'mkv', 'flv', 'wmv', 'webm', 'm4v']
     return []
 
 def select_input_file(file_type):
@@ -52,9 +52,9 @@ def select_input_file(file_type):
     root.withdraw()
     
     if file_type == 'audio':
-        filetypes = [("音频文件", "*.mp3 *.wav *.flac"), ("所有文件", "*")]
+        filetypes = [("音频文件", "*.mp3 *.wav *.flac *.ogg *.m4a *.aac"), ("所有文件", "*")]
     else:
-        filetypes = [("视频文件", "*.mp4 *.avi *.mov *.mkv"), ("所有文件", "*")]
+        filetypes = [("视频文件", "*.mp4 *.mkv *.avi *.mov *.flv *.wmv *.webm *.m4v"), ("所有文件", "*")]
     
     file_path = filedialog.askopenfilename(
         title=f"选择{file_type}文件",
@@ -74,17 +74,19 @@ def command_line_mode():
         print("请安装Tkinter或使用图形界面模式")
         return
     
-    print("请选择要转换的文件格式：")
-    print("1. 音频文件 (mp3, wav, flac)")
-    print("2. 视频文件 (mp4, avi, mov)")
+    print("请选择要转换的文件类型：")
+    print("1. 音频文件")
+    print("   支持格式: MP3, WAV, OGG, M4A, FLAC, AAC")
+    print("2. 视频文件")
+    print("   支持格式: MP4, AVI, MOV, MKV, FLV, WMV, WebM, M4V")
     choice = input("请输入选项 (1/2): ")
     
     if choice == '1':
         file_type = 'audio'
-        formats = ['mp3', 'wav', 'flac']
+        formats = ['mp3', 'wav', 'ogg', 'm4a', 'flac', 'aac']
     elif choice == '2':
         file_type = 'video'
-        formats = ['mp4', 'avi', 'mov']
+        formats = ['mp4', 'avi', 'mov', 'mkv', 'flv', 'wmv', 'webm', 'm4v']
     else:
         print("无效的选择")
         return
