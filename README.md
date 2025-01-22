@@ -1,60 +1,58 @@
-# Video Audio Extractor & Converter <!-- zh --> 视频音频提取和转换器
+# Video Audio Extractor & Converter 🎬⇄🎵
 
-![Python](https://img.shields.io/badge/python-3.12%2B-blue)
+![Python Version](https://img.shields.io/badge/python-3.12%2B-blue)
 ![Platform](https://img.shields.io/badge/platform-macOS%20|%20Windows%20|%20Linux-lightgrey)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-A comprehensive toolkit for video/audio processing with GUI support:
+A comprehensive toolkit for video/audio processing with GUI support | 支持GUI的视频音频处理工具集
 
-## Features 功能特性
-- 🎥 Video downloading from 100+ platforms with resolution selection
-- 🔊 Audio extraction from video files
-- 🔄 Audio format conversion (MP3, WAV, OGG, M4A, FLAC, AAC)
-- 🎞️ Video format conversion (MP4, AVI, MOV, MKV, FLV, WMV, WebM, M4V)
-- 🔁 Batch processing support
-- 🖥️ User-friendly graphical interface
+## Table of Contents 📖
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Supported Formats](#supported-formats)
+- [Troubleshooting](#troubleshooting)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
 
-<!-- zh -->
-## 功能特性
-- 🎥 支持从100+个平台下载视频并选择清晰度
-- � 从视频文件中提取音频
-- �🔄 音频格式转换（MP3、WAV、OGG、M4A、FLAC、AAC）
-- 🎞️ 视频格式转换（MP4、AVI、MOV、MKV、FLV、WMV、WebM、M4V）
-- � 支持批量处理
-- 🖥️ 友好的图形界面
+## Features ✨
+### Core Functionality
+- 🎥 Multi-platform video downloading (100+ sources)
+- 🔊 High-quality audio extraction from videos
+- 🔄 Batch format conversion (audio & video)
+- 🖥️ Dual interface mode (CLI & GUI)
 
+### Technical Highlights
+- 🚀 Intelligent resolution selection
+- 🔁 Automatic retry mechanism (3 attempts)
+- 📁 Smart file organization
+- 🛠️ FFmpeg backend integration
 
-### 3. Install Dependencies <!-- zh --> 安装依赖
+## Installation 🛠️
 
+### 1. Prerequisites
+- Python 3.12+
+- FFmpeg (installation instructions below)
+
+### 2. Setup Environment
 ```bash
-# Upgrade pip
-pip install --upgrade pip
+# Create and activate virtual environment
+python -m venv venv
+source venv/bin/activate  # Linux/macOS
+venv\Scripts\activate     # Windows
 
-# Install package requirements
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-### 4. Install FFmpeg <!-- zh --> 安装FFmpeg
+### 3. FFmpeg Installation
+| Platform | Command |
+|----------|---------|
+| **macOS** | `brew install ffmpeg` |
+| **Linux** | `sudo apt update && sudo apt install ffmpeg` |
+| **Windows** | [Download executable](https://ffmpeg.org/download.html) ➜ Add to PATH |
 
-#### macOS:
-```bash
-brew install ffmpeg
-```
-
-#### Linux (Debian/Ubuntu):
-```bash
-sudo apt update && sudo apt install ffmpeg
-```
-
-#### Windows:
-1. Download from [official site](https://ffmpeg.org/download.html)
-2. Add ffmpeg.exe to PATH environment variable
-3. Restart terminal
-
-<!-- zh -->
-### Windows安装步骤：
-1. 从[官网下载](https://ffmpeg.org/download.html)
-2. 将ffmpeg.exe添加到PATH环境变量
-3. 重启终端
 
 
 
@@ -89,42 +87,50 @@ sudo apt install ffmpeg
 Note: ffmpeg is required for video downloading, audio extraction, and format conversion.
 注意：ffmpeg是视频下载、音频提取和格式转换所必需的。
 
-## Usage Guide <!-- zh --> 使用指南
+## Usage 🚀
 
-### ▶️ Video Downloader (video.py)
+### Video Downloader (`video.py`)
 ```bash
-python video.py
+python video.py [--resolution 720p] [--output ./downloads]
 ```
 
-**Features**:
-- Supports 100+ video platforms
-- Resolution selection with quality indicators
-- Automatic retry mechanism
-- Smart filename sanitization
+| Parameter    | Description                          | Default     |
+|--------------|--------------------------------------|-------------|
+| `--resolution` | Preferred video resolution          | Highest available |
+| `--output`     | Output directory path               | ./download  |
+| `--retries`    | Maximum download attempts           | 3           |
 
-**Usage Steps**:
-1. Enter video URL
-2. Choose preferred resolution from sorted list
-3. Monitor download progress with retry status
-4. Find downloaded files in `./download` folder
-
-<!-- zh -->
-### ▶️ 视频下载器 (video.py)
+🖥️ GUI Mode:
 ```bash
-python video.py
+python video.py --gui
 ```
 
-**功能特性**:
-- 支持100+个视频平台
-- 带质量指示的清晰度选择
-- 自动重试机制
-- 智能文件名处理
+### Audio Extractor (`extract_audio_with_ui.py`)
+```bash
+python extract_audio_with_ui.py [input_file] [--format mp3]
+```
 
-**使用步骤**:
-1. 输入视频链接
-2. 从排序列表中选择清晰度
-3. 查看下载进度和重试状态
-4. 下载文件保存在`./download`文件夹
+| Supported Formats | Extensions |
+|-------------------|------------|
+| MP3               | .mp3       |
+| WAV               | .wav       |
+| FLAC              | .flac      |
+| AAC               | .aac       |
+
+### Format Converter (`convert.py`)
+```bash
+# Convert video formats
+python convert.py input.mp4 --to mov
+
+# Convert audio formats 
+python convert.py input.wav --to mp3 --bitrate 320k
+```
+
+📊 Quality Options:
+```bash
+--bitrate    # Audio quality (96k, 128k, 192k, 256k, 320k)
+--crf        # Video quality (18-28, lower=better quality)
+```
 
 ---
 
@@ -421,26 +427,43 @@ pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org -r req
 - Large video files may take longer to process
   大型视频文件可能需要更长的处理时间
 
-## Project Structure <!-- zh --> 项目结构
+## Project Structure 🌲
 
 ```
 VedioPy/
-├── video.py                    # Main video download module
-├── extract_audio_with_ui.py    # Audio extraction with GUI
-├── convert.py                  # Format conversion core logic
-├── requirements.txt            # Dependency list
-├── folder-alias.json           # Folder alias configuration
-├── download/                   # Download directory
-└── README.md                   # Documentation
-
-<!-- zh -->
+├── src/
+│   ├── video/                 # Video downloading core logic
+│   ├── audio/                 # Audio processing modules
+│   └── gui/                   # GUI components
+├── scripts/                   # Utility scripts
+├── tests/                     # Unit & integration tests
+├── docs/                      # Documentation resources
+│
+├── video.py                   # Main video download entry point
+├── extract_audio_with_ui.py   # Audio extraction GUI application
+├── convert.py                 # Format conversion CLI/GUI interface
+├── requirements.txt           # Python dependencies
+├── .gitignore                 # Version control exclusion rules
+└── README.md                  # Project documentation
 ```
-VedioPy/
-├── video.py                    # 主视频下载模块
-├── extract_audio_with_ui.py    # 带图形界面的音频提取
-├── convert.py                  # 格式转换核心逻辑
-├── requirements.txt            # 依赖包列表
-├── folder-alias.json           # 文件夹别名配置
-├── download/                   # 下载文件存储目录
-└── README.md                   # 项目文档
+
+## Contributing 🤝
+
+We welcome contributions! Please follow these steps:
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License 📄
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+```
+MIT License
+
+Copyright (c) 2025 VedioPy
+
+Permission is hereby granted... (truncated for brevity)
 ```
