@@ -178,10 +178,39 @@ def main():
 
     # 构造 yt-dlp 的下载参数
     ydl_opts = {
-        'outtmpl': os.path.join(out_dir, out_name),  
-        'merge_output_format': 'mp4',  # 最终输出 mp4
-        # 强制转换成mp4, 如想保留原格式可去掉
-        # 'postprocessors': [{'key': 'FFmpegVideoConvertor', 'preferedformat': 'mp4'}],
+        'outtmpl': os.path.join(out_dir, out_name),
+        'format': 'bestvideo[height<=1080]+bestaudio/best[height<=1080]',
+        'merge_output_format': 'mp4',
+        'retries': 20,
+        'fragment_retries': 20,
+        'throttled_rate': '1M',
+        'ignoreerrors': True,
+        'cookiefile': 'cookies.txt' if os.path.exists('cookies.txt') else None,
+        'downloader': 'aria2c',
+        'downloader_args': {
+            'http': ['--min-split-size=1M', '--max-connection-per-server=8'],
+        },
+        'extractor_args': {
+            'youtube': {
+                'player_client': ['android_embedded', 'web_mobile'],
+                'player_skip': ['configs'],
+                'skip': ['hls', 'dash', 'translated_subs']
+            }
+        },
+        'http_headers': {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.6367.93 Safari/537.36',
+            'Accept-Language': 'en-US,en;q=0.9',
+            'Referer': 'https://www.youtube.com/',
+        },
+        'compat_opts': {
+            'youtube-skip-dash-manifest',
+            'no-live-chat'
+        },
+        'socket_timeout': 30,
+        'retry_sleep': 5,
+        'force-ipv4': True,
+        'nocheckcertificate': True,
+        'verbose': True
     }
 
     if chosen_height in single_map:
