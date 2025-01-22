@@ -2,7 +2,14 @@
 moviepy==1.0.3
 tk==0.1.0
 pydub==0.25.1
-yt-dlp==2024.4.9
+yt-dlp==2025.1.15
+requests==2.32.3
+urllib3==2.3.0
+websockets==14.2
+certifi==2024.12.14
+mutagen==1.47.0
+pycryptodomex==3.21.0
+brotli==1.1.0
 ffmpeg-python==0.2.0
 
 # Audio processing dependencies
@@ -16,4 +23,3 @@ pillow>=9.2.0
 tqdm>=4.11.2
 
 # Utilities
-requests>=2.8.1
