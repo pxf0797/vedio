@@ -179,7 +179,7 @@ def main():
     # 构造 yt-dlp 的下载参数
     ydl_opts = {
         'outtmpl': os.path.join(out_dir, out_name),
-        'format': 'bestvideo[height<=1080]+bestaudio/best[height<=1080]',
+        'format': f'bestvideo[height={chosen_height}][vcodec^=avc1]+bestaudio/best[height={chosen_height}]',
         'merge_output_format': 'mp4',
         'retries': 20,
         'fragment_retries': 20,
@@ -188,7 +188,8 @@ def main():
         'cookiefile': 'cookies.txt' if os.path.exists('cookies.txt') else None,
         'downloader': 'aria2c',
         'downloader_args': {
-            'http': ['--min-split-size=1M', '--max-connection-per-server=8'],
+            'http': ['--min-split-size=1M', '--max-connection-per-server=16', '--split=32', '--auto-file-renaming=false'],
+            'https': ['--min-split-size=1M', '--max-connection-per-server=16', '--split=32', '--auto-file-renaming=false'],
         },
         'extractor_args': {
             'youtube': {
@@ -206,8 +207,9 @@ def main():
             'youtube-skip-dash-manifest',
             'no-live-chat'
         },
-        'socket_timeout': 30,
-        'retry_sleep': 5,
+        'socket_timeout': 300,
+        'retry_sleep': 30,
+        'proxy': os.environ.get('HTTPS_PROXY') or os.environ.get('HTTP_PROXY'),
         'force-ipv4': True,
         'nocheckcertificate': True,
         'verbose': True
