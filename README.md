@@ -321,12 +321,47 @@ python convert.py --gui  # 图形界面模式
 
 ### Tkinter Issues Tkinter问题
 
-If you encounter Tkinter-related errors:
-如果遇到Tkinter相关错误：
+If you encounter "_tkinter" module errors on macOS:
 
-#### macOS:
+1. Install Tcl/Tk via Homebrew:
 ```bash
-brew install python-tk@3.12
+brew install tcl-tk
+```
+
+2. Reinstall Python with proper Tcl/Tk support:
+```bash
+rm -rf ~/.pyenv/versions/3.12.6
+export LDFLAGS="-L/opt/homebrew/opt/tcl-tk/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/tcl-tk/include"
+pyenv install --force 3.12.6 \
+  --with-tcltk-includes='-I/opt/homebrew/opt/tcl-tk/include' \
+  --with-tcltk-libs='-L/opt/homebrew/opt/tcl-tk/lib -ltcl9.0 -ltk9.0'
+```
+
+3. Install required dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+如果遇到Tkinter相关错误：
+1. 通过Homebrew安装Tcl/Tk：
+```bash
+brew install tcl-tk
+```
+
+2. 重新安装Python并启用Tcl/Tk支持：
+```bash
+rm -rf ~/.pyenv/versions/3.12.6
+export LDFLAGS="-L/opt/homebrew/opt/tcl-tk/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/tcl-tk/include"
+pyenv install --force 3.12.6 \
+  --with-tcltk-includes='-I/opt/homebrew/opt/tcl-tk/include' \
+  --with-tcltk-libs='-L/opt/homebrew/opt/tcl-tk/lib -ltcl9.0 -ltk9.0'
+```
+
+3. 安装项目依赖：
+```bash
+pip install -r requirements.txt
 ```
 
 #### Linux:

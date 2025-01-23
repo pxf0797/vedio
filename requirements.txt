@@ -11,6 +11,7 @@ mutagen==1.47.0
 pycryptodomex==3.21.0
 brotli==1.1.0
 ffmpeg-python==0.2.0
+#pyaudioop==0.1.0
 
 # Audio processing dependencies
 decorator==4.4.2
