@@ -93,7 +93,6 @@ def multi_round_download(page_url, ydl_opts, max_rounds=3, max_retries=3):
             try:
                 with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                     ydl.download([page_url])
-                print("下载成功！")
                 return True
             except Exception as e:
                 print(f"下载出错: {e}")
@@ -135,6 +134,10 @@ def main():
         success = multi_round_download(page_url, ydl_opts, max_rounds=3, max_retries=3)
         if success:
             print("\n下载完成！请查看下载文件夹：./download")
+        else:
+            print("\n下载未完成，请检查网络或重试")
+        else:
+            print("\n下载未完成，请检查网络或重试")
         return
 
     # 3. 列出所有可用分辨率(从高到低)
@@ -238,6 +241,8 @@ def main():
 
     if success:
         print("\n下载完成！请查看下载文件夹：", out_dir)
+    else:
+        print("\n下载未完成，请检查网络连接或尝试其他清晰度")
     else:
         # 下载失败，询问是否要换其他分辨率
         while True:
