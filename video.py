@@ -136,8 +136,6 @@ def main():
             print("\n下载完成！请查看下载文件夹：./download")
         else:
             print("\n下载未完成，请检查网络或重试")
-        else:
-            print("\n下载未完成，请检查网络或重试")
         return
 
     # 3. 列出所有可用分辨率(从高到低)
@@ -243,7 +241,6 @@ def main():
         print("\n下载完成！请查看下载文件夹：", out_dir)
     else:
         print("\n下载未完成，请检查网络连接或尝试其他清晰度")
-    else:
         # 下载失败，询问是否要换其他分辨率
         while True:
             alt = input("\n下载失败，是否尝试选择其他清晰度继续？(y/n): ").strip().lower()
