@@ -126,6 +126,15 @@ def main():
     # 如果所有 map 都为空，说明拿不到可下载的格式
     if not single_map and not video_map:
         print("未获取到标准格式，尝试使用yt-dlp默认下载方式...")
+        
+        # 询问是否需要自定义文件名
+        custom_filename = input("\n是否需要自定义文件名？(y/n，默认n): ").strip().lower()
+        if custom_filename == 'y':
+            custom_name = input("请输入自定义文件名: ").strip()
+            if custom_name:
+                # 使用自定义名称
+                title_clean = sanitize_filename(custom_name)
+        
         ydl_opts = {
             'outtmpl': os.path.join('./download', f'{title_clean}.%(ext)s'),
             'format': 'best',
@@ -143,6 +152,26 @@ def main():
     if not sorted_heights:
         # 如果在 single_map/video_map 中都没有 height>0
         print("未检测到可识别的分辨率，无法选择。尝试直接使用 yt-dlp 'best' 下载。")
+        
+        # 询问是否需要自定义文件名
+        custom_filename = input("\n是否需要自定义文件名？(y/n，默认n): ").strip().lower()
+        if custom_filename == 'y':
+            custom_name = input("请输入自定义文件名: ").strip()
+            if custom_name:
+                # 使用自定义名称
+                title_clean = sanitize_filename(custom_name)
+                
+        ydl_opts = {
+            'outtmpl': os.path.join('./download', f'{title_clean}.%(ext)s'),
+            'format': 'best',
+            'merge_output_format': 'mp4'
+        }
+        
+        success = multi_round_download(page_url, ydl_opts, max_rounds=3, max_retries=3)
+        if success:
+            print("\n下载完成！请查看下载文件夹：./download")
+        else:
+            print("\n下载未完成，请检查网络或重试")
         return
 
     print("\n检测到以下清晰度可供选择:")
