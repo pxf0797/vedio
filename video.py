@@ -173,6 +173,15 @@ def main():
 
     # 4. 根据所选分辨率，判断是否有单文件
     chosen_res_str = f"{chosen_height}p"
+    
+    # 询问是否需要自定义文件名
+    custom_filename = input("\n是否需要自定义文件名？(y/n，默认n): ").strip().lower()
+    if custom_filename == 'y':
+        custom_name = input("请输入自定义文件名: ").strip()
+        if custom_name:
+            # 使用自定义名称，但仍然添加清晰度
+            title_clean = sanitize_filename(custom_name)
+    
     out_name = f"{title_clean}_{chosen_res_str}.%(ext)s"
     out_dir = "./download"
     os.makedirs(out_dir, exist_ok=True)
