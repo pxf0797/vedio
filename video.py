@@ -1,7 +1,38 @@
+"""
+YouTube视频下载工具 - 增强版
+支持YouTube视频签名提取失败情况的处理
+提供更灵活的格式选择和错误处理
+
+使用方法:
+1. 运行脚本: python video.py
+2. 输入YouTube视频链接
+3. 选择清晰度或格式
+4. 等待下载完成
+
+更新日志:
+- 增加了对YouTube签名提取失败的处理
+- 添加了格式列表显示功能
+- 支持自定义格式ID输入
+- 改进了错误处理和用户提示
+- 优化了下载参数配置
+"""
+
 import os
 import re
 import yt_dlp
 from datetime import datetime
+import sys
+
+# 检查yt-dlp版本
+try:
+    yt_dlp_version = yt_dlp.version.__version__
+    print(f"当前yt-dlp版本: {yt_dlp_version}")
+    print("更新yt-dlp版本使用指令: pip install -U yt-dlp")
+    # 如果版本过旧，提示更新
+    if yt_dlp_version < "2025":
+        print("⚠️ 您的yt-dlp版本可能较旧，建议更新: pip install -U yt-dlp")
+except:
+    print("⚠️ 无法检测yt-dlp版本")
 
 def sanitize_filename(name: str) -> str:
     """
@@ -94,6 +125,30 @@ def multi_round_download(page_url, ydl_opts, max_rounds=3, max_retries=3):
                 with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                     ydl.download([page_url])
                 return True
+            except yt_dlp.utils.ExtractorError as e:
+                # 这是格式问题，尝试使用列出格式后再选择
+                if "Requested format is not available" in str(e) and retry_idx == 1:
+                    print(f"请求的格式不可用，尝试列出所有格式并重新选择...")
+                    try:
+                        # 修改选项来列出所有格式
+                        list_opts = ydl_opts.copy()
+                        list_opts['listformats'] = True
+                        list_opts['quiet'] = False
+                        with yt_dlp.YoutubeDL(list_opts) as ydl_list:
+                            ydl_list.download([page_url])
+                        
+                        # 当用户查看完可用格式后，让他们选择
+                        format_id = input("\n请从上方列表中选择一个可用的格式ID: ").strip()
+                        if format_id:
+                            # 使用用户选择的格式ID
+                            ydl_opts['format'] = format_id
+                            # 直接尝试使用新格式下载
+                            with yt_dlp.YoutubeDL(ydl_opts) as ydl_new:
+                                ydl_new.download([page_url])
+                            return True
+                    except Exception as list_err:
+                        print(f"尝试列出格式失败: {list_err}")
+                print(f"下载出错: {e}")
             except Exception as e:
                 print(f"下载出错: {e}")
 
