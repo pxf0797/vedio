@@ -28,6 +28,7 @@ try:
     yt_dlp_version = yt_dlp.version.__version__
     print(f"当前yt-dlp版本: {yt_dlp_version}")
     print("更新yt-dlp版本使用指令: pip install -U yt-dlp")
+    print('setupt cookies example: python -m yt_dlp --cookies-from-browser chrome --verbose --ignore-config "https://www.youtube.com/watch?v=P99ZHIUKAJY&t=3839s"')
     # 如果版本过旧，提示更新
     if yt_dlp_version < "2025":
         print("⚠️ 您的yt-dlp版本可能较旧，建议更新: pip install -U yt-dlp")
@@ -52,6 +53,7 @@ def parse_formats(page_url: str):
     ydl_opts = {
         'quiet': True,
         'skip_download': True,
+        'cookiefile': 'cookies.txt'
     }
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         info = ydl.extract_info(page_url, download=False)
