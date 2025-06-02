@@ -53,14 +53,42 @@ def setup_authentication():
             print("将使用当前目录下的cookies.txt文件")
         else:
             print("当前目录下不存在cookies.txt文件，将从浏览器提取cookies")
-            browser = input("请输入浏览器类型 (chrome/firefox/edge/safari/opera/brave/chromium): ").strip().lower()
-            auth_opts['cookiesfrombrowser'] = (browser, None, None, None)
-            print(f"将从{browser}浏览器提取cookies")
+            browsers = ["chrome", "firefox", "edge", "safari", "opera", "brave", "chromium"]
+            print("可用的浏览器选项:")
+            for i, browser_option in enumerate(browsers, 1):
+                print(f"{i}. {browser_option}")
+            browser_choice = input("请选择浏览器类型 [1-7]: ").strip()
+            try:
+                browser_idx = int(browser_choice) - 1
+                if 0 <= browser_idx < len(browsers):
+                    browser = browsers[browser_idx]
+                    auth_opts['cookiesfrombrowser'] = (browser, None, None, None)
+                    print(f"将从{browser}浏览器提取cookies")
+                else:
+                    print("无效选择，使用默认浏览器(chrome)")
+                    auth_opts['cookiesfrombrowser'] = ("chrome", None, None, None)
+            except ValueError:
+                print("无效输入，使用默认浏览器(chrome)")
+                auth_opts['cookiesfrombrowser'] = ("chrome", None, None, None)
     
     elif choice == '2':
-        browser = input("请输入浏览器类型 (chrome/firefox/edge/safari/opera/brave/chromium): ").strip().lower()
-        auth_opts['cookiesfrombrowser'] = (browser, None, None, None)
-        print(f"将从{browser}浏览器提取cookies")
+        browsers = ["chrome", "firefox", "edge", "safari", "opera", "brave", "chromium"]
+        print("可用的浏览器选项:")
+        for i, browser_option in enumerate(browsers, 1):
+            print(f"{i}. {browser_option}")
+        browser_choice = input("请选择浏览器类型 [1-7]: ").strip()
+        try:
+            browser_idx = int(browser_choice) - 1
+            if 0 <= browser_idx < len(browsers):
+                browser = browsers[browser_idx]
+                auth_opts['cookiesfrombrowser'] = (browser, None, None, None)
+                print(f"将从{browser}浏览器提取cookies")
+            else:
+                print("无效选择，使用默认浏览器(chrome)")
+                auth_opts['cookiesfrombrowser'] = ("chrome", None, None, None)
+        except ValueError:
+            print("无效输入，使用默认浏览器(chrome)")
+            auth_opts['cookiesfrombrowser'] = ("chrome", None, None, None)
     
     elif choice == '3':
         custom_path = input("请输入cookie文件的完整路径: ").strip()
