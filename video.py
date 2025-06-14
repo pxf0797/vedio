@@ -7,8 +7,7 @@ YouTube视频下载工具 - 增强版
 1. 运行脚本: python video.py
 2. 输入YouTube视频链接
 3. 选择清晰度或格式
-4. 等待下载完成
-
+4. 
 更新日志:
 - 增加了对YouTube签名提取失败的处理
 - 添加了格式列表显示功能
@@ -16,7 +15,6 @@ YouTube视频下载工具 - 增强版
 - 改进了错误处理和用户提示
 - 优化了下载参数配置
 """
-
 import os
 import re
 import yt_dlp
@@ -320,13 +318,44 @@ def main():
         # 需要合并音频
         # 选中视频流
         video_format_id = video_map[chosen_height]
-        # 选中音频流(取音频列表里的第一条 = 码率最高)
+        
+        # 处理音频流选择
         if not audio_list:
             print("未找到可用音频流，无法合并音频。可能会无声。")
             ydl_opts['format'] = video_format_id
         else:
-            best_audio_id = audio_list[0][1]
-            ydl_opts['format'] = f"{video_format_id}+{best_audio_id}"
+            # 如果有多个音频流，让用户选择
+            if len(audio_list) > 1:
+                print("\n检测到多个音频流可供选择:")
+                for i, (abr, audio_id) in enumerate(audio_list, start=1):
+                    print(f"{i}. {abr}kbps (格式ID: {audio_id})")
+                
+                # 用户选择音频流
+                audio_choice = ""
+                while True:
+                    audio_choice = input("\n请选择音频质量编号(如 '1')，或直接按回车使用最高音质: ").strip()
+                    if not audio_choice:  # 用户直接按回车，使用默认
+                        selected_audio_id = audio_list[0][1]  # 使用最高码率
+                        print(f"已选择默认最高音质 ({audio_list[0][0]}kbps)")
+                        break
+                    elif audio_choice.isdigit():
+                        idx = int(audio_choice) - 1
+                        if 0 <= idx < len(audio_list):
+                            selected_audio_id = audio_list[idx][1]
+                            print(f"已选择 {audio_list[idx][0]}kbps 音质")
+                            break
+                        else:
+                            print("无效编号，请重新输入。")
+                    else:
+                        print("无效输入，请重新输入。")
+            else:
+                # 只有一个音频流，直接使用
+                selected_audio_id = audio_list[0][1]
+                print(f"\n仅检测到一个音频流 ({audio_list[0][0]}kbps)，将直接使用。")
+            
+            # 设置下载格式
+            ydl_opts['format'] = f"{video_format_id}+{selected_audio_id}"
+        
         print(f"\n已选择{chosen_height}p（视频+音频分离），yt-dlp会自动下载并合并。")
 
     # 5. 进行多轮、多次重试下载
