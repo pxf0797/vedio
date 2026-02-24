@@ -1,0 +1,58 @@
+# YouTube视频下载器配置文件
+# 注意: 当前版本仅部分支持，命令行参数优先级高于配置文件
+
+defaults:
+  # 默认下载目录
+  download_dir: ./download
+
+  # 默认输出格式
+  format: mp4
+
+  # 默认合并音频
+  merge_audio: true
+
+  # 重试次数
+  retry_times: 3
+
+  # 最大重试轮数
+  max_rounds: 3
+
+authentication:
+  # 默认cookie文件路径（支持 ~ 扩展）
+  cookies_file: ~/.youtube_cookies.txt
+
+  # 默认浏览器类型（用于自动提取cookies）
+  # 可选: chrome, firefox, edge, safari, opera, brave, chromium
+  browser: chrome
+
+  # 是否跳过认证（不推荐）
+  skip_auth: false
+
+quality:
+  # 默认首选分辨率（像素高度，如720, 1080, 1440, 2160）
+  # 设为0表示自动选择最高质量
+  preferred_resolution: 0
+
+  # 默认音频质量偏好
+  # 可选: best, high, medium, low
+  audio_quality: best
+
+network:
+  # 代理设置（留空表示不使用）
+  proxy:
+
+  # 超时时间（秒）
+  timeout: 300
+
+  # User-Agent字符串
+  user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.6367.93 Safari/537.36"
+
+advanced:
+  # 是否使用aria2c加速下载（如果可用）
+  use_aria2c: true
+
+  # 是否显示详细日志
+  verbose: true
+
+  # 是否跳过证书验证（仅在不安全网络中使用）
+  no_check_certificate: false
